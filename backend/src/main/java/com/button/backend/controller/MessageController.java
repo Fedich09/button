@@ -4,6 +4,7 @@ import com.button.backend.model.Message;
 import com.button.backend.repository.MessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +15,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/message")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class MessageController {
     private final MessageRepository messageRepository;
 
-    @PostMapping(path = "/add", consumes = {"application/json"})
+    @PostMapping(path = "/add")
     public ResponseEntity<Message> addMessage(@RequestBody Message message) {
         return ResponseEntity.ok(messageRepository.save(message));
     }
